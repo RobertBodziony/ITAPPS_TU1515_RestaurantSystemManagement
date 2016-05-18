@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class CreateNewPizza extends Activity {
         addPizza = (Button) findViewById(R.id.add_pizza);
         nameEdit = (EditText) findViewById(R.id.pizza_name);
 
+
         standardCheckbox.add(mozarellacheck);
         standardCheckbox.add(tomatosaucecheck);
 
@@ -49,6 +51,8 @@ public class CreateNewPizza extends Activity {
 
         vegeCheckbox.add(mushroomscheck);
         vegeCheckbox.add(tomatoescheck);
+
+
 
         addPizza.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +86,9 @@ public class CreateNewPizza extends Activity {
                     name = nameEdit.getText().toString();
                 }
 
+                    if(desc.length() == 0){
+                        desc = "Pizza bread.";
+                    }
                 price = Integer.toString(priceCounter);
 
                 MealInfo.PIZZA_NAMESL.add(name.toUpperCase());

@@ -7,6 +7,7 @@
     <string name="create_STANDARD">Standard</string>
     <string name="create_VEGETABLES">Vegetables</string>
     <string name="create_MEAT">Meat</string>
+    <string name="create_CHOOSE">Choose your ingredients:</string>
 
     <string name="create_mozarella">Mozarella</string>
     <string name="create_sauce">Tomato sauce</string>

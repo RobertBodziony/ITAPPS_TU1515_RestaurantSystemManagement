@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class DetailsFragment extends Fragment {
     private ProgressDialog pDialog;
 
     JSONParser jsonParser = new JSONParser();
+    ImageView image;
     EditText inputName;
     EditText inputPrice;
     EditText ipaddr;
@@ -84,13 +86,14 @@ public class DetailsFragment extends Fragment {
         textViewDesc = (TextView) view.findViewById(R.id.textDesc);
         textViewPrice = (TextView) view.findViewById(R.id.textPrice);
         addToButton = (Button) view.findViewById(R.id.addToCartButt);
-
+        image = (ImageView) view.findViewById(R.id.details_image);
 
         switch (getShownIndex()[1]) {
             case 1:
                 textViewName.setText(MealInfo.PIZZA_NAMESL.get(getShownIndex()[0]));
                 textViewDesc.setText(MealInfo.PIZZA_DESCL.get(getShownIndex()[0]));
                 textViewPrice.setText("Price: " + MealInfo.PIZZA_PRICEL.get(getShownIndex()[0]) + " PLN");
+                image.setImageResource(R.drawable.pizzaimg);
                 break;
             case 2:
                 textViewName.setText(MealInfo.PASTA_NAMESL.get(getShownIndex()[0]));

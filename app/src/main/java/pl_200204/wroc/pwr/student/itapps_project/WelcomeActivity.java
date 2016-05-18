@@ -141,64 +141,64 @@ public class WelcomeActivity extends AppCompatActivity {
 
         
         protected String doInBackground(String... args) {
+            if(MealInfo.TYPES.isEmpty()) {
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+                JSONObject json = jParser.makeHttpRequest(url_all_types, "GET", params);
 
-            JSONObject json = jParser.makeHttpRequest(url_all_types, "GET", params);
+                Log.d("All Products: ", json.toString());
 
-            Log.d("All Products: ", json.toString());
+                try {
+                    int success = json.getInt(TAG_SUCCESS);
 
-            try {
-                int success = json.getInt(TAG_SUCCESS);
+                    if (success == 1) {
+                        products = json.getJSONArray(TAG_PRODUCTS);
 
-                if (success == 1) {
-                    products = json.getJSONArray(TAG_PRODUCTS);
-                    for (int i = 0; i < products.length(); i++) {
-                        JSONObject c = products.getJSONObject(i);
+                        for (int i = 0; i < products.length(); i++) {
+                            JSONObject c = products.getJSONObject(i);
 
-                        String type = c.getString(TAG_TYPE);
-                        String name = c.getString(TAG_NAME);
-                        String price = c.getString(TAG_PRICE);
-                        String desc = c.getString(TAG_DESC);
+                            String type = c.getString(TAG_TYPE);
+                            String name = c.getString(TAG_NAME);
+                            String price = c.getString(TAG_PRICE);
+                            String desc = c.getString(TAG_DESC);
 
-                        if(MealInfo.TYPES.isEmpty()) {
-                            MealInfo.TYPES.add("PIZZA");
-                            MealInfo.TYPES.add("PASTA");
-                            MealInfo.TYPES.add("SALADS");
-                            MealInfo.TYPES.add("DRINKS");
+                            if (MealInfo.TYPES.isEmpty()) {
+                                MealInfo.TYPES.add("PIZZA");
+                                MealInfo.TYPES.add("PASTA");
+                                MealInfo.TYPES.add("SALADS");
+                                MealInfo.TYPES.add("DRINKS");
+                            }
+
+                            switch (type) {
+                                case "PIZZA":
+                                    MealInfo.PIZZA_NAMESL.add(name);
+                                    MealInfo.PIZZA_DESCL.add(desc);
+                                    MealInfo.PIZZA_PRICEL.add(price);
+                                    break;
+                                case "PASTA":
+                                    MealInfo.PASTA_NAMESL.add(name);
+                                    MealInfo.PASTA_DESCL.add(desc);
+                                    MealInfo.PASTA_PRICEL.add(price);
+                                    break;
+                                case "SALAD":
+                                    MealInfo.SALAD_NAMESL.add(name);
+                                    MealInfo.SALAD_DESCL.add(desc);
+                                    MealInfo.SALAD_PRICEL.add(price);
+                                    break;
+                                case "DRINK":
+                                    MealInfo.DRINK_NAMESL.add(name);
+                                    MealInfo.DRINK_DESCL.add(desc);
+                                    MealInfo.DRINK_PRICEL.add(price);
+                                    break;
+                            }
+
+
                         }
-
-                        switch(type){
-                            case "PIZZA":
-                                MealInfo.PIZZA_NAMESL.add(name);
-                                MealInfo.PIZZA_DESCL.add(desc);
-                                MealInfo.PIZZA_PRICEL.add(price);
-                                break;
-                            case "PASTA":
-                                MealInfo.PASTA_NAMESL.add(name);
-                                MealInfo.PASTA_DESCL.add(desc);
-                                MealInfo.PASTA_PRICEL.add(price);
-                                break;
-                            case "SALAD":
-                                MealInfo.SALAD_NAMESL.add(name);
-                                MealInfo.SALAD_DESCL.add(desc);
-                                MealInfo.SALAD_PRICEL.add(price);
-                                break;
-                            case "DRINK":
-                                MealInfo.DRINK_NAMESL.add(name);
-                                MealInfo.DRINK_DESCL.add(desc);
-                                MealInfo.DRINK_PRICEL.add(price);
-                                break;
-                        }
-
-
-
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-
             return null;
         }
 
