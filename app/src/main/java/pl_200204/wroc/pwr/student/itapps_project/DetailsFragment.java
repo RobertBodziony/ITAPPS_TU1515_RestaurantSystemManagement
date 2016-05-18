@@ -37,34 +37,40 @@ public class DetailsFragment extends Fragment {
     JSONParser jsonParser = new JSONParser();
     EditText inputName;
     EditText inputPrice;
+    EditText ipaddr;
     EditText inputDesc;
+    int index, whichType;
+    public static String ipaddress;
 
-    // url to create new product
-    private static String url_create_product = "http://172.16.90.88/itapps/create_product.php";
 
-    // JSON Node names
+    private static String url_create_product;
+
     private static final String TAG_SUCCESS = "success";
 
     TextView textViewName, textViewPrice, textViewDesc;
     ShoppingCart shoppingCart = new ShoppingCart();
     Button addToButton;
 
-    public static DetailsFragment newInstance(int index){
+    public static DetailsFragment newInstance(int index, int whichType){
 
         DetailsFragment f = new DetailsFragment();
 
         Bundle args = new Bundle();
         args.putInt("index",index);
-
+        args.putInt("whichType",whichType);
         f.setArguments(args);
 
         return f;
 
     }
 
-    public int getShownIndex(){
+    public int[] getShownIndex(){
 
-        return getArguments().getInt("index",0);
+        int[] tab = new int[2];
+        tab[0] = getArguments().getInt("index",0);
+        tab[1] = getArguments().getInt("whichType",0);
+
+        return tab;
 
     }
 
@@ -79,18 +85,39 @@ public class DetailsFragment extends Fragment {
         textViewPrice = (TextView) view.findViewById(R.id.textPrice);
         addToButton = (Button) view.findViewById(R.id.addToCartButt);
 
-        textViewName.setText(MealInfo.NAMES[getShownIndex()]);
-        textViewDesc.setText(MealInfo.DESCRIPTION[getShownIndex()]);
-        textViewPrice.setText("Price: " + MealInfo.PRICE[getShownIndex()] + " PLN");
 
+        switch (getShownIndex()[1]) {
+            case 1:
+                textViewName.setText(MealInfo.PIZZA_NAMESL.get(getShownIndex()[0]));
+                textViewDesc.setText(MealInfo.PIZZA_DESCL.get(getShownIndex()[0]));
+                textViewPrice.setText("Price: " + MealInfo.PIZZA_PRICEL.get(getShownIndex()[0]) + " PLN");
+                break;
+            case 2:
+                textViewName.setText(MealInfo.PASTA_NAMESL.get(getShownIndex()[0]));
+                textViewDesc.setText(MealInfo.PASTA_DESCL.get(getShownIndex()[0]));
+                textViewPrice.setText("Price: " + MealInfo.PASTA_PRICEL.get(getShownIndex()[0]) + " PLN");
+                break;
+            case 3:
+                textViewName.setText(MealInfo.SALAD_NAMESL.get(getShownIndex()[0]));
+                textViewDesc.setText(MealInfo.SALAD_DESCL.get(getShownIndex()[0]));
+                textViewPrice.setText("Price: " + MealInfo.SALAD_PRICEL.get(getShownIndex()[0]) + " PLN");
+                break;
+            case 4:
+                textViewName.setText(MealInfo.DRINK_NAMESL.get(getShownIndex()[0]));
+                textViewDesc.setText(MealInfo.DRINK_DESCL.get(getShownIndex()[0]));
+                textViewPrice.setText("Price: " + MealInfo.DRINK_PRICEL.get(getShownIndex()[0]) + " PLN");
+                break;
+
+        }
         addToButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                ipaddress = "192.168.0.100";
                 String name = textViewName.getText().toString();
                 String price = textViewPrice.getText().toString().substring(7);
                 String description = textViewDesc.getText().toString();
-
+                url_create_product = "http://"+ipaddress+"/itapps/create_product.php";
                 new CreateNewProduct().execute(name, price, description);
 
             }

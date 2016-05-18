@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -15,15 +16,38 @@ public class TitlesFragment extends ListFragment{
 
     boolean mDuelPane;
     int mCurrCheckPosition = 0;
-
+    int whichmealtype;
+    ArrayAdapter<String> connectArrayToListView;
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ArrayAdapter<String> connectArrayToListView = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_activated_1,MealInfo.NAMES);
+        FragmentLayout activity = (FragmentLayout) getActivity();
+        whichmealtype = Integer.parseInt(activity.getMyData())+1;
 
-        setListAdapter(connectArrayToListView);
+        switch (whichmealtype) {
+            case 1:
+                connectArrayToListView = new ArrayAdapter<String>(getActivity(),
+                        android.R.layout.simple_list_item_activated_1, MealInfo.PIZZA_NAMESL);
+                setListAdapter(connectArrayToListView);
+                break;
+            case 2:
+                connectArrayToListView = new ArrayAdapter<String>(getActivity(),
+                        android.R.layout.simple_list_item_activated_1, MealInfo.PASTA_NAMESL);
+                setListAdapter(connectArrayToListView);
+                break;
+            case 3:
+                connectArrayToListView = new ArrayAdapter<String>(getActivity(),
+                        android.R.layout.simple_list_item_activated_1, MealInfo.SALAD_NAMESL);
+                setListAdapter(connectArrayToListView);
+                break;
+            case 4:
+                connectArrayToListView = new ArrayAdapter<String>(getActivity(),
+                        android.R.layout.simple_list_item_activated_1, MealInfo.DRINK_NAMESL);
+                setListAdapter(connectArrayToListView);
+                break;
+        }
+
 
         View detailsFrame = getActivity().findViewById(R.id.details);
 
@@ -31,8 +55,6 @@ public class TitlesFragment extends ListFragment{
 
         if(savedInstanceState != null) {
             mCurrCheckPosition = savedInstanceState.getInt("curChoice",0);
-
-
         }
 
         if(mDuelPane){
@@ -57,15 +79,16 @@ public class TitlesFragment extends ListFragment{
     void showDetails(int index){
         mCurrCheckPosition = index;
 
+
         if(mDuelPane){
 
             getListView().setItemChecked(index,true);
 
             DetailsFragment detailsFragment = (DetailsFragment) getFragmentManager().findFragmentById(R.id.details);
 
-            if (detailsFragment == null || detailsFragment.getShownIndex() != index) {
+            if (detailsFragment == null || detailsFragment.getShownIndex()[0] != index) {
 
-                detailsFragment = DetailsFragment.newInstance(index);
+                detailsFragment = DetailsFragment.newInstance(index,whichmealtype);
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
 
@@ -81,7 +104,8 @@ public class TitlesFragment extends ListFragment{
 
                 intent.setClass(getActivity(), DetailsActivity.class);
 
-                intent.putExtra("index",index);
+                intent.putExtra("index", index);
+                intent.putExtra("whichType",whichmealtype);
 
                 startActivity(intent);
 

@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="pl_200204.wroc.pwr.student.itapps_project.FragmentLayout">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/infomenuitem"
         android:orderInCategory="100"
         android:title=""
         app:showAsAction="ifRoom"
-        android:icon="@android:drawable/ic_dialog_info"/>
+        android:icon="@android:drawable/ic_menu_info_details"/>
+
 </menu>

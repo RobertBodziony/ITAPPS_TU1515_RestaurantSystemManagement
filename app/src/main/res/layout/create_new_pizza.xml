@@ -7,7 +7,9 @@
             <TableRow android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:gravity="center"
-                android:background="@color/pumpkin">
+                android:background="@color/pumpkin"
+                android:layout_margin="5dp"
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -21,6 +23,38 @@
                     android:textAlignment="center" />
             </TableRow>
 
+    <TableRow android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:gravity="center_horizontal"
+        android:focusableInTouchMode="true">
+
+        <EditText android:id="@+id/pizza_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="Enter name of your pizza."
+            android:textColor="@android:color/black"
+            />
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_pizza"
+            android:id="@+id/add_pizza"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+    </TableRow>
+    <ScrollView>
+    <TableLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
             <TableRow android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -49,14 +83,16 @@
                             android:layout_height="match_parent"
                             android:layout_width="0dp"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:checked="true"/>
 
                         <CheckBox android:id="@+id/sauceCheckBox"
                             android:text="@string/create_sauce"
                             android:layout_height="match_parent"
                             android:layout_width="0dp"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:checked="true"/>
 
                     </TableRow>
 
@@ -133,5 +169,6 @@
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:layout_weight="1"/>
                     </TableRow>
-
+    </TableLayout>
+    </ScrollView>
 </TableLayout>
