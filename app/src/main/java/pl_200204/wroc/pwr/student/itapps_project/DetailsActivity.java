@@ -1,6 +1,7 @@
 package pl_200204.wroc.pwr.student.itapps_project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,16 +18,21 @@ import android.view.View;
  */
 public class DetailsActivity extends AppCompatActivity {
 
+    int fromWhere;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme);
 
+        Intent intent = getIntent();
+        fromWhere = intent.getIntExtra("fromWhere", 0);
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && fromWhere == 1) {
             finish();
             return;
         }
+
 
         if (savedInstanceState == null) {
 

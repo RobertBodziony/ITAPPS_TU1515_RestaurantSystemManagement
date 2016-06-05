@@ -19,14 +19,15 @@ import java.util.List;
  */
 public class CreateNewPizza extends Activity {
 
-    CheckBox mozarellacheck,tomatosaucecheck,salamicheck,hamcheck,mushroomscheck,tomatoescheck;
+    CheckBox mozarellacheck, tomatosaucecheck, salamicheck, hamcheck, mushroomscheck, tomatoescheck;
     List<CheckBox> standardCheckbox = new ArrayList<>();
     List<CheckBox> meatCheckbox = new ArrayList<>();
     List<CheckBox> vegeCheckbox = new ArrayList<>();
     EditText nameEdit;
-    int priceCounter = 5,counter = 0;
+    int priceCounter = 5, counter = 0;
     Button addPizza;
-    String desc="",name="CREATED PIZZA",price;
+    String desc = "", name = "CREATED PIZZA", price;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,6 @@ public class CreateNewPizza extends Activity {
         vegeCheckbox.add(tomatoescheck);
 
 
-
         addPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,43 +66,41 @@ public class CreateNewPizza extends Activity {
                         }
                     }
 
-
-                for (int i = 0; i < meatCheckbox.size(); i++) {
-                    if (meatCheckbox.get(i).isChecked()) {
-                        desc = desc + meatCheckbox.get(i).getText() + ", ";
-                        priceCounter = priceCounter + 4;
+                    for (int i = 0; i < meatCheckbox.size(); i++) {
+                        if (meatCheckbox.get(i).isChecked()) {
+                            desc = desc + meatCheckbox.get(i).getText() + ", ";
+                            priceCounter = priceCounter + 4;
+                        }
                     }
-                }
 
-
-                for (int i = 0; i < vegeCheckbox.size(); i++) {
-                    if (vegeCheckbox.get(i).isChecked()) {
-                        desc = desc + vegeCheckbox.get(i).getText() + ", ";
-                        priceCounter = priceCounter + 3;
+                    for (int i = 0; i < vegeCheckbox.size(); i++) {
+                        if (vegeCheckbox.get(i).isChecked()) {
+                            desc = desc + vegeCheckbox.get(i).getText() + ", ";
+                            priceCounter = priceCounter + 3;
+                        }
                     }
-                }
 
-                if (nameEdit.getText().length() != 0) {
-                    name = nameEdit.getText().toString();
-                }
+                    if (nameEdit.getText().length() != 0) {
+                        name = nameEdit.getText().toString();
+                    }
 
-                    if(desc.length() == 0){
+                    if (desc.length() == 0) {
                         desc = "Pizza bread.";
                     }
-                price = Integer.toString(priceCounter);
+                    price = Integer.toString(priceCounter);
 
-                MealInfo.PIZZA_NAMESL.add(name.toUpperCase());
-                MealInfo.PIZZA_DESCL.add(desc.substring(0, desc.length() - 2));
-                MealInfo.PIZZA_PRICEL.add(price);
+                    MealInfo.SHOPPING_CARD_NAME.add(name.toUpperCase());
+                    MealInfo.SHOPPING_CARD_DESC.add(desc.substring(0, desc.length() - 2));
+                    MealInfo.SHOPPING_CARD_PRICE.add(price);
 
-                    Toast.makeText(getApplicationContext(),"Pizza successfully added to menu. If you" +
-                            " want order it, go to \"STANDARD MENU\"->\"PIZZA\" and find the name of created pizza.",Toast.LENGTH_SHORT).show();
-                counter++;
-                if (counter == 2) counter = 0;
-            } else {
-                    Toast.makeText(getApplicationContext(),"This pizza is already in menu, because " +
+                    Toast.makeText(getApplicationContext(), "Pizza successfully added to your shopping " +
+                            "cart. Go back and click on the basket icon to finalize your order.", Toast.LENGTH_SHORT).show();
+                    counter++;
+                    if (counter == 2) counter = 0;
+                } else {
+                    Toast.makeText(getApplicationContext(), "This pizza is already in menu, because " +
                             "you've added it when you've clicked \"ADD PIZZA\" button. If you're sure " +
-                            "that you want to add it again, click the button again.",Toast.LENGTH_LONG).show();
+                            "that you want to add it again, click the button again.", Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -9,127 +9,75 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBTools  extends SQLiteOpenHelper {
+public class DBTools extends SQLiteOpenHelper {
 
     public DBTools(Context applicationcontext) {
-        super(applicationcontext, "testdata.db", null, 1);
+        super(applicationcontext, "tablesANDpizzas.db", null, 1);
     }
 
     public void onCreate(SQLiteDatabase database) {
-        String query = "CREATE TABLE shoppinglist ( id INTEGER PRIMARY KEY, name TEXT, " +
-                "description TEXT, phoneNumber TEXT, emailAddress TEXT, homeAddress TEXT)";
+        String query = "CREATE TABLE tables ( tableNO INTEGER DEFAULT 1)";
+
+        String query2 = "CREATE TABLE pizzas ( id INTEGER PRIMARY KEY, name TEXT, " +
+                "description TEXT, price TEXT)";
 
         database.execSQL(query);
+        database.execSQL(query2);
 
     }
 
-    // onUpgrade is used to drop tables, add tables, or do anything
-    // else it needs to upgrade
-    // This is droping the table to delete the data and then calling
-    // onCreate to make an empty table
-
     public void onUpgrade(SQLiteDatabase database, int version_old, int current_version) {
-        String query = "DROP TABLE IF EXISTS contacts";
-
-        // Executes the query provided as long as the query isn't a select
-        // or if the query doesn't return any data
+        String query = "DROP TABLE IF EXISTS tables";
 
         database.execSQL(query);
         onCreate(database);
     }
 
-    public void insertContact(HashMap<String, String> queryValues) {
+    public void insertVal(HashMap<String, String> queryValues) {
 
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put("firstName", queryValues.get("firstName"));
-        values.put("lastName", queryValues.get("lastName"));
-        values.put("phoneNumber", queryValues.get("phoneNumber"));
-        values.put("emailAddress", queryValues.get("emailAddress"));
-        values.put("homeAddress", queryValues.get("homeAddress"));
-
-        database.insert("contacts", null, values);
+        values.put("tableNO", queryValues.get("tableNO"));
+        database.insert("tables", null, values);
 
         database.close();
     }
 
     public int updateContact(HashMap<String, String> queryValues) {
 
-        // Open a database for reading and writing
-
         SQLiteDatabase database = this.getWritableDatabase();
-
-        // Stores key value pairs being the column name and the data
 
         ContentValues values = new ContentValues();
 
-        values.put("firstName", queryValues.get("firstName"));
-        values.put("lastName", queryValues.get("lastName"));
-        values.put("phoneNumber", queryValues.get("phoneNumber"));
-        values.put("emailAddress", queryValues.get("emailAddress"));
-        values.put("homeAddress", queryValues.get("homeAddress"));
-
-        // update(TableName, ContentValueForTable, WhereClause, ArgumentForWhereClause)
-
-        return database.update("contacts", values, "contactId" + " = ?", new String[] { queryValues.get("contactId") });
+        values.put("tableNO", queryValues.get("tableNO"));
+        // TO DO ARONOLMEN
+        return database.update("tables", values,"contactId" + " = ?", new String[]{queryValues.get("contactId")});
     }
-
-    // Used to delete a contact with the matching contactId
 
     public void deleteContact(String id) {
 
-        // Open a database for reading and writing
-
         SQLiteDatabase database = this.getWritableDatabase();
-
-        String deleteQuery = "DELETE FROM  contacts where contactId='"+ id +"'";
-
-        // Executes the query provided as long as the query isn't a select
-        // or if the query doesn't return any data
-
+        String deleteQuery = "DELETE FROM  tables where tableNO='" + id + "'";
         database.execSQL(deleteQuery);
     }
 
     public ArrayList<HashMap<String, String>> getAllContacts() {
-
-        // ArrayList that contains every row in the database
-        // and each row key / value stored in a HashMap
-
         ArrayList<HashMap<String, String>> contactArrayList;
 
         contactArrayList = new ArrayList<HashMap<String, String>>();
 
-        String selectQuery = "SELECT  * FROM contacts";
-
-        // Open a database for reading and writing
-
+        String selectQuery = "SELECT  * FROM tables";
         SQLiteDatabase database = this.getWritableDatabase();
-
-        // Cursor provides read and write access for the
-        // data returned from a database query
-
-        // rawQuery executes the query and returns the result as a Cursor
-
         Cursor cursor = database.rawQuery(selectQuery, null);
-
-        // Move to the first row
 
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> contactMap = new HashMap<String, String>();
 
-                // Store the key / value pairs in a HashMap
-                // Access the Cursor data by index that is in the same order
-                // as used when creating the table
+                //contactMap.put("contactId", cursor.getString(0));
 
-                contactMap.put("contactId", cursor.getString(0));
-                contactMap.put("firstName", cursor.getString(1));
-                contactMap.put("lastName", cursor.getString(2));
-                contactMap.put("phoneNumber", cursor.getString(3));
-                contactMap.put("emailAddress", cursor.getString(4));
-                contactMap.put("homeAddress", cursor.getString(5));
 
                 contactArrayList.add(contactMap);
             } while (cursor.moveToNext()); // Move Cursor to the next row
@@ -146,7 +94,7 @@ public class DBTools  extends SQLiteOpenHelper {
 
         SQLiteDatabase database = this.getReadableDatabase();
 
-        String selectQuery = "SELECT * FROM contacts where contactId='"+id+"'";
+        String selectQuery = "SELECT * FROM contacts where contactId='" + id + "'";
 
         // rawQuery executes the query and returns the result as a Cursor
 

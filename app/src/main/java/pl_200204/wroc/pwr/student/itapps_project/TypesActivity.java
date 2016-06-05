@@ -5,6 +5,7 @@ package pl_200204.wroc.pwr.student.itapps_project;
  */
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,14 +35,15 @@ public class TypesActivity extends AppCompatActivity {
                 String shoppingList = "";
                 if (shoppingCart.getShoppingList().isEmpty()) {
                     shoppingList = "Your shopping list is empty.";
+                    Snackbar.make(view, shoppingList, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 } else {
-                    shoppingList = "";
-                    for (int i = 0; i < shoppingCart.getShoppingList().size(); i++) {
-                        shoppingList = shoppingList + shoppingCart.getShoppingList().get(i);
-                    }
+                    Intent intent = new Intent();
+
+                    intent.setClass(getApplicationContext(), ShoppingCart.class);
+
+                    startActivity(intent);
                 }
-                Snackbar.make(view, shoppingList, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
     }

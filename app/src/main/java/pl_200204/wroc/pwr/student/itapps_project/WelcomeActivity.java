@@ -39,7 +39,7 @@ import java.util.Set;
 public class WelcomeActivity extends AppCompatActivity {
 
     ImageView welcomeIMG;
-    Button standard_menu,create_pizza;
+    Button standard_menu, create_pizza;
     int counter = 0;
     ShoppingCart shoppingCart = new ShoppingCart();
 
@@ -71,7 +71,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 counter++;
-                if(counter == 5){
+                if (counter == 5) {
 
                     Toast toast = Toast.makeText(getApplicationContext(), "Yes, you've clicked here 5 times. Sorry, this functionality is not available yet.", Toast.LENGTH_SHORT);
                     toast.show();
@@ -98,12 +98,14 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 Intent intent = new Intent();
 
-                intent.setClass(getApplicationContext(),CreateNewPizza.class);
+                intent.setClass(getApplicationContext(), CreateNewPizza.class);
 
                 startActivity(intent);
 
             }
         });
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -112,16 +114,17 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String shoppingList = "";
-                if(shoppingCart.getShoppingList().isEmpty()) {
+                if (shoppingCart.getShoppingList().isEmpty()) {
                     shoppingList = "Your shopping list is empty.";
-
+                    Snackbar.make(view, shoppingList, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 } else {
-                    shoppingList = "";
-                    for(int i=0;i<shoppingCart.getShoppingList().size();i++) {
-                        shoppingList = shoppingList + shoppingCart.getShoppingList().get(i);
-                    }}
-                Snackbar.make(view, shoppingList, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                    Intent intent = new Intent();
+
+                    intent.setClass(getApplicationContext(), ShoppingCart.class);
+
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -139,9 +142,9 @@ public class WelcomeActivity extends AppCompatActivity {
             pDialog.show();
         }
 
-        
+
         protected String doInBackground(String... args) {
-            if(MealInfo.TYPES.isEmpty()) {
+            if (MealInfo.TYPES.isEmpty()) {
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
 
                 JSONObject json = jParser.makeHttpRequest(url_all_types, "GET", params);

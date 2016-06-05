@@ -4,66 +4,99 @@
     android:layout_height="match_parent">
 
     <ScrollView>
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-                <TableRow>
-                     <ImageView
+            <TableRow>
+
+                <ImageView
+                    android:id="@+id/details_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:src="@drawable/pizzaimg" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold|italic" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/textDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/textPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:paddingTop="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_horizontal">
+
+                <RadioGroup
+                    android:id="@+id/radioSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+
+                    <RadioButton
+                        android:id="@+id/radioSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                         android:id="@+id/details_image"
-                        android:src="@drawable/pizzaimg"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"/>
-                 </TableRow>
+                        android:checked="true"
+                        android:text="@string/pizza_size_S"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingRight="40dp"/>
 
-                <TableRow>
-                    <TextView
+                    <RadioButton
+                        android:id="@+id/radioLarge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
-                        android:id="@+id/textName"
-                        android:textStyle="bold|italic"
-                        android:padding="4dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textAlignment="center"/>
-                </TableRow>
-        <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:id="@+id/textDesc"
-                android:textStyle="bold"
-                android:padding="4dp"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-        </TableRow>
+                        android:text="@string/pizza_size_L"
+                        android:layout_gravity="center_horizontal" />
+                </RadioGroup>
+            </TableRow>
 
-    <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:id="@+id/textPrice"
-                android:textStyle="bold"
-                android:padding="4dp"
-                android:textSize="15sp"
-                android:paddingTop="10dp"
-                android:textAlignment="center"/>
-    </TableRow>
+            <TableRow android:layout_gravity="center">
 
-                <TableRow
-                android:layout_gravity="center">
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ORDER MEAL"
-                        android:id="@+id/addToCartButt"
-                        />
+                <Button
+                    android:id="@+id/addToCartButt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_to_cart" />
 
-                </TableRow>
+            </TableRow>
         </TableLayout>
     </ScrollView>
 </TableLayout>

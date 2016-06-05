@@ -16,6 +16,16 @@
     <string name="create_salami">Salami</string>
     <string name="create_tomatoes">Tomatoes</string>
     <string name="add_pizza">ADD PIZZA TO MENU</string>
+    <string name="WelcomeWhatToDo">What would you like to do?</string>
+    <string name="standardMenu">STANDARD MENU</string>
+    <string name="createNew">CREATE YOUR PIZZA</string>
+    <string name="YourShoppingCart">Your Shopping Cart:</string>
+    <string name="menu_content">Menu</string>
+    <string name="showShoppingCart">Shopping Cart</string>
+    <string name="order_button">ORDER</string>
+    <string name="pizza_size_L">Large</string>
+    <string name="pizza_size_S">Small</string>
+    <string name="add_to_cart">ADD TO CART</string>
 
 
 </resources>

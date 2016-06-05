@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,44 +35,32 @@ import java.util.List;
  */
 public class DetailsFragment extends Fragment {
 
-    private ProgressDialog pDialog;
-
-    JSONParser jsonParser = new JSONParser();
     ImageView image;
-    EditText inputName;
-    EditText inputPrice;
-    EditText ipaddr;
-    EditText inputDesc;
-    int index, whichType;
-    public static String ipaddress;
-
-
-    private static String url_create_product;
-
-    private static final String TAG_SUCCESS = "success";
-
     TextView textViewName, textViewPrice, textViewDesc;
+    RadioGroup radioGroup;
     ShoppingCart shoppingCart = new ShoppingCart();
     Button addToButton;
 
-    public static DetailsFragment newInstance(int index, int whichType){
+    public static DetailsFragment newInstance(int index, int whichType, int fromWhere) {
 
         DetailsFragment f = new DetailsFragment();
 
         Bundle args = new Bundle();
-        args.putInt("index",index);
-        args.putInt("whichType",whichType);
+        args.putInt("index", index);
+        args.putInt("whichType", whichType);
+        args.putInt("fromWhere", fromWhere);
         f.setArguments(args);
 
         return f;
 
     }
 
-    public int[] getShownIndex(){
+    public int[] getShownIndex() {
 
-        int[] tab = new int[2];
-        tab[0] = getArguments().getInt("index",0);
-        tab[1] = getArguments().getInt("whichType",0);
+        int[] tab = new int[3];
+        tab[0] = getArguments().getInt("index", 0);
+        tab[1] = getArguments().getInt("whichType", 0);
+        tab[2] = getArguments().getInt("fromWhere", 0);
 
         return tab;
 
@@ -87,6 +77,10 @@ public class DetailsFragment extends Fragment {
         textViewPrice = (TextView) view.findViewById(R.id.textPrice);
         addToButton = (Button) view.findViewById(R.id.addToCartButt);
         image = (ImageView) view.findViewById(R.id.details_image);
+        radioGroup = (RadioGroup) view.findViewById(R.id.radioSize);
+        if (getShownIndex()[2] == 2) {
+            addToButton.setText("REMOVE FROM LIST");
+        }
 
         switch (getShownIndex()[1]) {
             case 1:
@@ -99,67 +93,48 @@ public class DetailsFragment extends Fragment {
                 textViewName.setText(MealInfo.PASTA_NAMESL.get(getShownIndex()[0]));
                 textViewDesc.setText(MealInfo.PASTA_DESCL.get(getShownIndex()[0]));
                 textViewPrice.setText("Price: " + MealInfo.PASTA_PRICEL.get(getShownIndex()[0]) + " PLN");
+                image.setImageResource(R.drawable.pizzaimg);
                 break;
             case 3:
                 textViewName.setText(MealInfo.SALAD_NAMESL.get(getShownIndex()[0]));
                 textViewDesc.setText(MealInfo.SALAD_DESCL.get(getShownIndex()[0]));
                 textViewPrice.setText("Price: " + MealInfo.SALAD_PRICEL.get(getShownIndex()[0]) + " PLN");
+                image.setImageResource(R.drawable.pizzaimg);
                 break;
             case 4:
                 textViewName.setText(MealInfo.DRINK_NAMESL.get(getShownIndex()[0]));
                 textViewDesc.setText(MealInfo.DRINK_DESCL.get(getShownIndex()[0]));
                 textViewPrice.setText("Price: " + MealInfo.DRINK_PRICEL.get(getShownIndex()[0]) + " PLN");
+                image.setImageResource(R.drawable.pizzaimg);
                 break;
-
+            case 5:
+                textViewName.setText(MealInfo.SHOPPING_CARD_NAME.get(getShownIndex()[0]));
+                textViewDesc.setText(MealInfo.SHOPPING_CARD_DESC.get(getShownIndex()[0]));
+                textViewPrice.setText("Price: " + MealInfo.SHOPPING_CARD_PRICE.get(getShownIndex()[0]) + " PLN");
+                image.setImageResource(R.drawable.pizzaimg);
+                break;
         }
+
+
         addToButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                ipaddress = "192.168.0.100";
                 String name = textViewName.getText().toString();
                 String price = textViewPrice.getText().toString().substring(7);
                 String description = textViewDesc.getText().toString();
-                url_create_product = "http://"+ipaddress+"/itapps/create_product.php";
-                new CreateNewProduct().execute(name, price, description);
-
+                int IDsize = radioGroup.getCheckedRadioButtonId();
+                RadioButton size = (RadioButton) radioGroup.findViewById(IDsize);
+                if (getShownIndex()[2] == 1) {
+                    shoppingCart.addToList(name, description, price, size.getText().toString());
+                } else {
+                    shoppingCart.removeFromList(getShownIndex()[0]);
+                }
             }
         });
 
 
         return view;
     }
-    class CreateNewProduct extends AsyncTask<String, String, String> {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Creating Product..");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-
-        protected String doInBackground(String... args) {
-
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("name", args[0]));
-            params.add(new BasicNameValuePair("price", args[1]));
-            params.add(new BasicNameValuePair("description", args[2]));
-
-            JSONObject json = jsonParser.makeHttpRequest(url_create_product,
-                    "POST", params);
-
-
-            Log.d("Create Response", json.toString());
-
-            return null;
-        }
-
-        protected void onPostExecute(String file_url) {
-            pDialog.dismiss();
-        }
-
-    }
 }

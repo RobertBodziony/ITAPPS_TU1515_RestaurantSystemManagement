@@ -38,7 +38,7 @@ public class FragmentLayout extends AppCompatActivity {
         setContentView(R.layout.fragment_layout);
 
         Intent intent = getIntent();
-        s = Integer.toString(intent.getIntExtra("indexOfType",1));
+        s = Integer.toString(intent.getIntExtra("indexOfType", 1));
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -50,15 +50,16 @@ public class FragmentLayout extends AppCompatActivity {
             public void onClick(View view) {
                 String shoppingList = "";
                 if (shoppingCart.getShoppingList().isEmpty()) {
-                    shoppingList = s;
+                    shoppingList = "Your shopping list is empty.";
+                    Snackbar.make(view, shoppingList, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 } else {
-                    shoppingList = "";
-                    for (int i = 0; i < shoppingCart.getShoppingList().size(); i++) {
-                        shoppingList = shoppingList + shoppingCart.getShoppingList().get(i);
-                    }
+                    Intent intent = new Intent();
+
+                    intent.setClass(getApplicationContext(), ShoppingCart.class);
+
+                    startActivity(intent);
                 }
-                Snackbar.make(view, shoppingList, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
     }

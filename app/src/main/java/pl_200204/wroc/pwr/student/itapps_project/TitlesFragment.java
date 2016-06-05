@@ -12,18 +12,19 @@ import android.widget.ListView;
 /**
  * Created by Keczaps on 2016-04-06.
  */
-public class TitlesFragment extends ListFragment{
+public class TitlesFragment extends ListFragment {
 
     boolean mDuelPane;
     int mCurrCheckPosition = 0;
     int whichmealtype;
     ArrayAdapter<String> connectArrayToListView;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         FragmentLayout activity = (FragmentLayout) getActivity();
-        whichmealtype = Integer.parseInt(activity.getMyData())+1;
+        whichmealtype = Integer.parseInt(activity.getMyData()) + 1;
 
         switch (whichmealtype) {
             case 1:
@@ -46,6 +47,11 @@ public class TitlesFragment extends ListFragment{
                         android.R.layout.simple_list_item_activated_1, MealInfo.DRINK_NAMESL);
                 setListAdapter(connectArrayToListView);
                 break;
+            case 5:
+                connectArrayToListView = new ArrayAdapter<String>(getActivity(),
+                        android.R.layout.simple_list_item_activated_1, MealInfo.DRINK_NAMESL);
+                setListAdapter(connectArrayToListView);
+                break;
         }
 
 
@@ -53,11 +59,11 @@ public class TitlesFragment extends ListFragment{
 
         mDuelPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
 
-        if(savedInstanceState != null) {
-            mCurrCheckPosition = savedInstanceState.getInt("curChoice",0);
+        if (savedInstanceState != null) {
+            mCurrCheckPosition = savedInstanceState.getInt("curChoice", 0);
         }
 
-        if(mDuelPane){
+        if (mDuelPane) {
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             showDetails(mCurrCheckPosition);
         }
@@ -68,7 +74,7 @@ public class TitlesFragment extends ListFragment{
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt("curChoice",mCurrCheckPosition);
+        outState.putInt("curChoice", mCurrCheckPosition);
     }
 
     @Override
@@ -76,23 +82,23 @@ public class TitlesFragment extends ListFragment{
         showDetails(position);
     }
 
-    void showDetails(int index){
+    void showDetails(int index) {
         mCurrCheckPosition = index;
+        int fromWhere = 1;
 
+        if (mDuelPane) {
 
-        if(mDuelPane){
-
-            getListView().setItemChecked(index,true);
+            getListView().setItemChecked(index, true);
 
             DetailsFragment detailsFragment = (DetailsFragment) getFragmentManager().findFragmentById(R.id.details);
 
             if (detailsFragment == null || detailsFragment.getShownIndex()[0] != index) {
 
-                detailsFragment = DetailsFragment.newInstance(index,whichmealtype);
+                detailsFragment = DetailsFragment.newInstance(index, whichmealtype, fromWhere);
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-                ft.replace(R.id.details,detailsFragment);
+                ft.replace(R.id.details, detailsFragment);
 
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
@@ -100,17 +106,19 @@ public class TitlesFragment extends ListFragment{
             }
         } else {
 
-                Intent intent = new Intent();
+            Intent intent = new Intent();
 
-                intent.setClass(getActivity(), DetailsActivity.class);
+            intent.setClass(getActivity(), DetailsActivity.class);
 
-                intent.putExtra("index", index);
-                intent.putExtra("whichType",whichmealtype);
+            intent.putExtra("index", index);
+            intent.putExtra("whichType", whichmealtype);
+            intent.putExtra("fromWhere", fromWhere);
 
-                startActivity(intent);
 
-            }
+            startActivity(intent);
 
         }
+
+    }
 }
 

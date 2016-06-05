@@ -8,12 +8,14 @@
     tools:context="pl_200204.wroc.pwr.student.itapps_project.FragmentLayout"
     tools:showIn="@layout/fragment_layout">
 
+
     <fragment
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:id="@+id/titles"
         class="pl_200204.wroc.pwr.student.itapps_project.TitlesFragment"
-        android:layout_weight="1"/>
+        />
 
     <FrameLayout
         android:id="@+id/details"

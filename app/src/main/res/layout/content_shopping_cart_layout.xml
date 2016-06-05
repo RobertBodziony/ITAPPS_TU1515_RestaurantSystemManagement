@@ -5,10 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="pl_200204.wroc.pwr.student.itapps_project.FragmentLayout"
-    tools:showIn="@layout/fragment_layout"
+    tools:context="pl_200204.wroc.pwr.student.itapps_project.ShoppingCart"
     android:gravity="center|top">
-
 
     <TableRow
         android:layout_width="match_parent"
@@ -17,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="@string/menu_content"
+            android:text="@string/YourShoppingCart"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:padding="5dp"/>
 
@@ -26,13 +24,23 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/titles"
-        class="pl_200204.wroc.pwr.student.itapps_project.TitlesFragment"/>
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shoppingCartContent"
+            class="pl_200204.wroc.pwr.student.itapps_project.ShoppingCartFragment"/>
     </TableRow>
 
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_button"
+            android:id="@+id/make_order"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+    </TableRow>
 
 </TableLayout>
