@@ -14,7 +14,7 @@
         <a class="btn btn-primary" href="mainsite.php" role="button">StartPage</a>
         <a class="btn btn-primary" href="index.php" role="button">Recived Orders</a>
         <a class="btn btn-primary" href="statistics.php" role="button">Statistics</a>
-        <a class="btn btn-primary" href="contact.php" role="button">Contact</a>
+        <a class="btn btn-primary" href="contact.php" role="button">Support</a>
       </nav>
     </div>
   </header>

@@ -14,7 +14,7 @@
         <a class="btn btn-primary" href="mainsite.php" role="button">StartPage</a>
         <a class="btn btn-primary" href="index.php" role="button">Recived Orders</a>
         <a class="btn btn-primary" href="statistics.php" role="button">Statistics</a>
-        <a class="btn btn-primary" href="contact.php" role="button">Contact</a>
+        <a class="btn btn-primary" href="contact.php" role="button">Support</a>
       </nav>
     </div>
   </header>
@@ -22,14 +22,14 @@
     <div class="container">
       <div class="row"/>
       <div class="row">
-    		<div class="col-md-2"></div>
-    		<div class="col-md-5">
+    		<div class="col-md-1"></div>
+    		<div class="col-md-6">
     			<h1 id="contact">Contact us!</h1>
     			<h2>ul. wybrzeze Stanislawa Wyspianskiego 27</h2>
     			<h2>50-370 Wroclaw</h2>
     			<h3>Phone number: 724 568 878</h3>
     		</div>
-      	<div id="map-container" class="col-md-3"></div>
+      	<div id="map-container" class="col-md-4"></div>
       </div>
     </div>
   </section>
