@@ -257,6 +257,10 @@ background: linear-gradient(to left, #C04848 , #480048)
     height: 400px;     
 	border: 3px solid #f;
 }
+.statistic-background
+{
+	background-color: grey;
+}
 #contact
 {
 	/*background-color: #F00000;*/

@@ -131,7 +131,7 @@ if (mysql_num_rows($result) > 0) {
         </nav>
       </div>
       </header>
-    <div class="jumbotron">
+    <div class="statistic-background">
         <?php echo display();?>
     </div>
 

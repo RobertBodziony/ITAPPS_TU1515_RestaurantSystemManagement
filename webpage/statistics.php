@@ -126,7 +126,7 @@ $counter = 0;
       </div>
       </header>
     
-    <div class="jumbotron">
+    <div class="statistic-background">
     <?php echo display();?>
     </div>
 
